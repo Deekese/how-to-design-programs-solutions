@@ -1,0 +1,24 @@
+#lang htdp/bsl
+
+(require 2htdp/image)
+
+(define HEIGHT 300)
+(define WIDTH 500)
+(define FRAME (empty-scene WIDTH HEIGHT))
+(define WATER (rectangle WIDTH (/ HEIGHT 2) "solid" "blue"))
+(define SAILS-WIDTH 100)
+(define SAILS (triangle SAILS-WIDTH "solid" "yellow"))
+(define BOAT-WIDTH 200)
+(define BOAT-HEIGHT 50)
+(define BOAT-MAST-WIDTH 10)
+(define BOAT-MAST-LENGTH 80)
+(define BOAT (overlay/xy SAILS
+                         (- (- (/ BOAT-WIDTH 2) (/ SAILS-WIDTH 2)))
+                         (/ SAILS-WIDTH 2)
+  (overlay/xy
+              (rectangle BOAT-WIDTH BOAT-HEIGHT "solid" "brown")
+              (- (/ BOAT-WIDTH 2) (/ BOAT-MAST-WIDTH 2))
+              (- BOAT-MAST-LENGTH)
+              (rectangle BOAT-MAST-WIDTH BOAT-MAST-LENGTH "solid" "gray"))))
+
+(overlay BOAT (overlay/xy WATER 0 (- (/ HEIGHT 2)) FRAME))
